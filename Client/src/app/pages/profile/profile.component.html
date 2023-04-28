@@ -1,0 +1,444 @@
+<app-header></app-header>
+
+<div class="dashboardMid">
+  <app-leftmenu></app-leftmenu>
+
+  <div class="dmRightSide" *ngIf="auth.user.user_type == 2">
+    <div class="dmRightSideInner">
+      <div class="dInnerHead">
+        <div class="diTitle">
+          {{ "Profile" | translate }}
+        </div>
+        <div class="diBreadcrumb">
+          <div class="mainPageBreadCrumb">
+            <ul>
+              <li>
+                <a routerLink="/dashboard">{{ "Dashboard" | translate }}</a>
+              </li>
+              <li>
+                <a><i class="fas fa-angle-double-right"></i></a>
+              </li>
+              <li>
+                <a>{{ "Profile" | translate }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="form" (submit)="submit()">
+        <div class="dashboardWhiteBox">
+          <div class="dBoxTitle">
+            <h1>{{ "My Profile" | translate }}</h1>
+          </div>
+          <div class="fbUpload">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="pnjUploadL">
+                <input type="file" (change)="selectFile($event)" />
+              </label>
+              <!-- <label for="pnjUploadL" class="form-label"
+                >Max file size is 1MB, Minimum dimension: 330x200 And Suitable
+                files are .jpg &amp; .png</label
+              > -->
+            </div>
+
+            <div class="input-group mb-3" *ngIf="auth.user.photo">
+              <img
+                src="{{ url }}auth/download/{{ auth.user.photo }}"
+                style="height: 200px"
+              />
+            </div>
+            <!-- <div class="input-group mb-3">
+              <label class="input-group-text" for="pnjUploadC"
+                >Browse Cover</label
+              >
+              <label for="pnjUploadC" class="form-label"
+                >Max file size is 1MB, Minimum dimension: 330x200 And Suitable
+                files are .jpg &amp; .png</label
+              >
+            </div> -->
+          </div>
+          <div class="formBox">
+            <!-- <div class="fbUpload">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="pnjUploadL">Browse Logo</label>
+                                    <label for="pnjUploadL" class="form-label">Max file size is 1MB, Minimum dimension: 330x200 And Suitable files are .jpg &amp; .png</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="pnjUploadC">Browse Cover</label>
+                                    <label for="pnjUploadC" class="form-label">Max file size is 1MB, Minimum dimension: 330x200 And Suitable files are .jpg &amp; .png</label>
+                                </div>
+                            </div> -->
+            <div class="contactPage">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label class="form-label"
+                    >{{ "Name" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter name"
+                    formControlName="name"
+                    name="name"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.name.touched &&
+                        form.controls.name.hasError('required')
+                      "
+                    >
+                      {{ "Field is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.name.dirty && form.controls.name.errors
+                      "
+                    >
+                      {{ "Invalid Field" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"
+                    >{{ "Company Name" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter company"
+                    formControlName="company"
+                    name="company"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.company.touched &&
+                        form.controls.company.hasError('required')
+                      "
+                    >
+                      {{ "Company is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.company.dirty &&
+                        form.controls.company.errors
+                      "
+                    >
+                      {{ "Invalid Company" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"
+                    >{{ "Email Address" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter email"
+                    formControlName="email"
+                    name="email"
+                    [readonly]="
+                      auth.user.login_method == 'Google' ||
+                      auth.user.login_method == 'Apple'
+                    "
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.email.touched &&
+                        form.controls.email.hasError('required')
+                      "
+                    >
+                      {{ "Email is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.email.dirty && form.controls.email.errors
+                      "
+                    >
+                      {{ "Invalid email" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label"
+                    >{{ "Phone" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Phone"
+                    formControlName="phone"
+                    name="phone"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.phone.touched &&
+                        form.controls.phone.hasError('required')
+                      "
+                    >
+                      {{ "Phone is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.phone.dirty && form.controls.phone.errors
+                      "
+                    >
+                      {{ "Invalid Phone" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label"
+                    >{{ "Website" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Website"
+                    formControlName="website"
+                    name="website"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.website.touched &&
+                        form.controls.website.hasError('required')
+                      "
+                    >
+                      {{ "Website is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.website.dirty &&
+                        form.controls.website.errors
+                      "
+                    >
+                      {{ "Invalid Website" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label"
+                    >{{ "Team Size" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <select
+                    class="form-select"
+                    formControlName="team_size"
+                    name="team_size"
+                  >
+                    <option value="50-100">1-200</option>
+                    <option value="100-150">200-500</option>
+                    <option value="150-200">500-1000</option>
+                    <option value="200-300">1000-2000</option>
+                  </select>
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.team_size.touched &&
+                        form.controls.team_size.hasError('required')
+                      "
+                    >
+                      {{ "Team Size is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.team_size.dirty &&
+                        form.controls.team_size.errors
+                      "
+                    >
+                      {{ "Invalid Team Size" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label"
+                    >{{ "About Company" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <textarea
+                    rows="5"
+                    class="form-control"
+                    placeholder="Write about your company"
+                    formControlName="company_description"
+                    name="company_description"
+                  ></textarea>
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.company_description.touched &&
+                        form.controls.company_description.hasError('required')
+                      "
+                    >
+                      {{ "Field is required" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboardWhiteBox mt-4">
+          <div class="dBoxTitle">
+            <h1>{{ "Contact Information" | translate }}</h1>
+          </div>
+          <div class="formBox">
+            <div class="contactPage">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="pnjCountry" class="form-label"
+                    >{{ "Country" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Country"
+                    formControlName="country"
+                    name="country"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.country.touched &&
+                        form.controls.country.hasError('required')
+                      "
+                    >
+                      {{ "Country is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.country.dirty &&
+                        form.controls.country.errors
+                      "
+                    >
+                      {{ "Invalid Country" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="pnjCity" class="form-label"
+                    >{{ "City" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter City"
+                    formControlName="city"
+                    name="city"
+                  />
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.city.touched &&
+                        form.controls.city.hasError('required')
+                      "
+                    >
+                      {{ "City is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.city.dirty && form.controls.city.errors
+                      "
+                    >
+                      {{ "Invalid City" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="pnjCompleteAddress" class="form-label"
+                    >{{ "Complete Address" | translate }}
+                    <span class="error">*</span></label
+                  >
+                  <textarea
+                    rows="4"
+                    class="form-control"
+                    id="pnjCompleteAddress"
+                    placeholder="Enter address"
+                    formControlName="address"
+                    name="address"
+                  ></textarea>
+                  <div class="error">
+                    <div
+                      *ngIf="
+                        form.controls.address.touched &&
+                        form.controls.address.hasError('required')
+                      "
+                    >
+                      {{ "Address is required" | translate }}
+                    </div>
+                    <div
+                      *ngIf="
+                        form.controls.address.dirty &&
+                        form.controls.address.errors
+                      "
+                    >
+                      {{ "Invalid Address" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboardWhiteBox mt-4">
+          <!-- <div class="dBoxTitle">
+                            <h1>Social Network</h1>
+                        </div> -->
+          <div class="formBox">
+            <div class="contactPage">
+              <!-- <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pnjFacebook" class="form-label">Facebook</label>
+                                        <input type="text" class="form-control" id="pnjFacebook" placeholder="www.faceboo.com/page name"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pnjTwitter" class="form-label">Twitter</label>
+                                        <input type="text" class="form-control" id="pnjTwitter" placeholder="www.twitter.com/page name"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pnjLinkedin" class="form-label">Linkedin</label>
+                                        <input type="text" class="form-control" id="pnjLinkedin" placeholder="www.linkedin.com/page name"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pnjInstagram" class="form-label">Instagram</label>
+                                        <input type="text" class="form-control" id="pnjInstagram" placeholder="www.instagram.com/page name"/>
+                                    </div>
+                                </div> -->
+              <div class="row adminFromBtn">
+                <div class="col-md-12 text-center">
+                  <button
+                    type="submit"
+                    class="swButton darkBtn mt-3 loginButton"
+                    [disabled]="loading"
+                  >
+                    <span *ngIf="!loading">{{
+                      "Save Information" | translate
+                    }}</span>
+                    <span *ngIf="loading">{{
+                      "Please wait.." | translate
+                    }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

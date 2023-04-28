@@ -1,0 +1,66 @@
+<app-header></app-header>
+
+<div class="dashboardMid">
+  <app-leftmenu></app-leftmenu>
+
+  <div class="dmRightSide">
+    <div class="dmRightSideInner">
+      <div class="dInnerHead">
+        <div class="diTitle">{{'Update Resume' | translate}}</div>
+        <div class="diBreadcrumb">
+          <div class="mainPageBreadCrumb">
+            <ul>
+              <li><a routerLink="/dashboard">{{'Dashboard' | translate}}</a></li>
+              <li>
+                <a><i class="fas fa-angle-double-right"></i></a>
+              </li>
+              <li><a>{{'Update Resume' | translate}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="dashboardWhiteBox">
+        <div class="dBoxTitle">
+          <h1>{{'Resume' | translate}}</h1>
+        </div>
+        <div class="formBox">
+          <div class="contactPage">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="swTabs">
+                  <div class="row">
+                    <div class="col-8">
+                      <label class="btn btn-default p-0">
+                        <input type="file" (change)="selectFile($event)" />
+                      </label>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="swButton darkBtn mt-3 loginButton" [disabled]="!selectedFiles"
+                        (click)="upload()">
+                        {{'Submit' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="currentFile" class="progress my-3">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                      attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{ width: progress + '%' }">
+                      {{ progress }}%
+                    </div>
+                  </div>
+                  <div *ngIf="message" class="alert alert-secondary" role="alert">
+                    {{ message }}
+                  </div>
+                </div>
+                <div class="haveAccount">
+                  <a href="javascript:;" (click)="downloadResume()">{{'Download Current Resume.' | translate}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

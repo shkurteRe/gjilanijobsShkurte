@@ -1,0 +1,165 @@
+<div id="loader" *ngIf="loading"></div>
+<app-header></app-header>
+
+<div class="dashboardMid">
+  <app-leftmenu></app-leftmenu>
+  <div class="dmRightSide">
+    <div class="dmRightSideInner">
+      <div class="dInnerHead">
+        <div class="diTitle">
+          {{ "Search" | translate }}
+        </div>
+        <div class="diBreadcrumb">
+          <div class="mainPageBreadCrumb">
+            <ul>
+              <li>
+                <a routerLink="/dashboard">{{ "Dashboard" | translate }}</a>
+              </li>
+              <li>
+                <a><i class="fas fa-angle-double-right"></i></a>
+              </li>
+              <li>
+                <a>{{ "Search" | translate }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="dashboardWhiteBox">
+        <div class="dBoxTitle">
+          <h1>{{ "Search" | translate }}</h1>
+        </div>
+        <div class="formBox">
+          <form class="contactPage" [formGroup]="form" (submit)="submit()">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                  name="title"
+                  placeholder="Job title, keywords, or company"
+                />
+                <!-- <span class="swInputHelpText">Your zip_code must be at least six characters &amp; cannot contain space or match your email address.</span> -->
+                <div class="error">
+                  <div
+                    *ngIf="
+                      form.controls.title.touched &&
+                      form.controls.title.hasError('required')
+                    "
+                  >
+                    {{ "zip_code is required" | translate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      form.controls.title.dirty && form.controls.title.errors
+                    "
+                  >
+                    {{ "Invalid zip_code" | translate }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="zip_code"
+                  name="zip_code"
+                  placeholder="City or Password"
+                />
+                <div class="error">
+                  <div
+                    *ngIf="
+                      form.controls.zip_code.touched &&
+                      form.controls.zip_code.hasError('required')
+                    "
+                  >
+                    {{ "New zip_code is required" | translate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      form.controls.zip_code.dirty &&
+                      form.controls.zip_code.errors
+                    "
+                  >
+                    {{ "Invalid zip_code" | translate }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <button
+                  type="submit"
+                  [disabled]="loading"
+                  class="swButton darkBtn loginButton"
+                >
+                  <span *ngIf="!loading">{{ "Find Jobs" | translate }}</span>
+                  <span *ngIf="loading">{{ "Please wait.." | translate }}</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="dashboardWhiteBox mt-4">
+        <div class="dBoxTitle">
+          <h1>{{ "Search Results" | translate }}</h1>
+        </div>
+        <div class="jobListing">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="jobsPageLeft">
+                  <div
+                    class="fjBox"
+                    *ngFor="let job of jobs"
+                    routerLink="/jobs/job/{{ job.id }}"
+                  >
+                    <div class="fjbTitle">
+                      <h2>{{ job.title }}</h2>
+                    </div>
+
+                    <div class="fjbDetail">
+                      <span
+                        ><i class="fas fa-map-marker-alt"></i>
+                        {{ job.address }}, {{ job.zip_code }}</span
+                      >
+                      <span
+                        ><i class="fas fa-money-bill-wave"></i>
+                        {{ job.starting_salary }}</span
+                      >
+                      <span
+                        ><i class="far fa-clock"></i>
+                        {{ job.createdAt | date : "fullDate" }}</span
+                      >
+                    </div>
+                    <div class="fjbTagsList">
+                      <span class="btn btn-primary fjbTags">{{
+                        job.type
+                      }}</span>
+                      <span class="btn btn-warning fjbTags">{{
+                        job.priority
+                      }}</span>
+                      <span class="btn btn-success fjbTags"
+                        >{{ "Age" | translate }} {{ job.minimum_age }} to
+                        {{ job.maximum_age }}</span
+                      >
+                    </div>
+                    <p class="fjbHelpText">{{ job.description }}</p>
+                    <p class="fjbHelpText">
+                      <i class="far fa-clock"></i>
+                      {{ job.updatedAt | date : "fullDate" }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

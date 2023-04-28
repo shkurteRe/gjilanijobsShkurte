@@ -1,0 +1,179 @@
+<div class="dmLeftSide">
+  <aside class="bd-aside sticky-top">
+    <nav class="small" id="toc">
+      <ul class="list-unstyled sideBarSW">
+        <li class="my-2">
+          <a
+            routerLink="/dashboard"
+            class="sideBarTitle btn d-inline-flex align-items-center"
+            ><i class="fas fa-columns"></i> {{'Dashboard' | translate}}</a
+          >
+        </li>
+        <li class="my-2">
+          <a
+            class="sideBarTitle btn d-inline-flex align-items-center collapsed"
+            data-bs-toggle="collapse"
+            aria-expanded="false"
+            data-bs-target="#forms-collapse"
+            aria-controls="forms-collapse"
+            ><i class="fas fa-users"></i> {{'Jobs' | translate}}
+            <i class="iconRight fa fa-angle-down"></i
+          ></a>
+          <ul
+            [class]="
+              menu
+                ? 'list-unstyled ps-3 collapse show'
+                : 'list-unstyled ps-3 collapse'
+            "
+            id="forms-collapse"
+          >
+            <li *ngIf="auth.user.user_type == 2">
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/create"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-signs-post"></i>
+                </div>
+                {{'Post A Job' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.user_type == 2">
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/list"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-list-check"></i>
+                </div>
+                {{'Posted Jobs' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.user_type == 2">
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/applications"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-file-circle-check"></i>
+                </div>
+                {{'Pending Applications' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.user_type == 1">
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/search"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                {{'Search Jobs' | translate}}
+              </a>
+            </li>
+            <li>
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/shortlist"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-list"></i>
+                </div>
+                {{'Shortlisted' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.user_type == 1">
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/applied"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-hands-clapping"></i>
+                </div>
+                {{'Pending Jobs' | translate}}
+              </a>
+            </li>
+            <li>
+              <a
+                class="d-inline-flex align-items-center rounded"
+                routerLink="/jobs/messages"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-message"></i>
+                </div>
+                {{'Messages' | translate}}
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="my-2">
+          <a
+            class="sideBarTitle btn d-inline-flex align-items-center collapsed"
+            data-bs-toggle="collapse"
+            aria-expanded="false"
+            data-bs-target="#components-collapse"
+            aria-controls="components-collapse"
+            ><i class="fas fa-cog"></i> {{'Settings' | translate}}
+            <i class="iconRight fa fa-angle-down"></i
+          ></a>
+          <ul
+            [class]="
+              menu2
+                ? 'list-unstyled ps-3 collapse show'
+                : 'list-unstyled ps-3 collapse'
+            "
+            id="components-collapse"
+          >
+            <li>
+              <a
+                [routerLink]="
+                  auth.user.user_type == 1 ? '/account' : '/profile'
+                "
+                class="d-inline-flex align-items-center rounded"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                {{'Profile' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.user_type == 1">
+              <a
+                routerLink="/uploads"
+                class="d-inline-flex align-items-center rounded"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-file"></i>
+                </div>
+                {{'Update Resume' | translate}}
+              </a>
+            </li>
+            <li *ngIf="auth.user.login_method == 'Email'">
+              <a
+                routerLink="/password"
+                class="d-inline-flex align-items-center rounded"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-key"></i>
+                </div>
+                {{'Change Password' | translate}}
+              </a>
+            </li>
+            <li>
+              <a
+                routerLink="/logout"
+                class="d-inline-flex align-items-center rounded"
+                href="javascript:;"
+              >
+                <div class="dsiImg">
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                {{'Logout' | translate}}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+</div>
